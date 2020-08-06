@@ -1,0 +1,6 @@
+- name: 'Install zabbix on ubuntu'
+  apt:
+    name: '{{ apache_package_name }}'
+    state: 'present'
+  become: true
+#when: 'ansible_os_family == "Debian"'
