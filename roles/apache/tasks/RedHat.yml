@@ -1,0 +1,6 @@
+- name: 'Install apache on redhat'
+  yum:
+    name: '{{ apache_package_name }}'
+    state: 'present'
+  become: true
+  when: 'ansible_os_family == "RedHat"'
