@@ -1,0 +1,9 @@
+---
+# tasks file for zabbix
+- name: 'Include OS specific variables'
+  include_vars:
+    file: '{{ ansible_os_family }}.yml'
+
+- name: 'Include OS specific tasks'
+  include_tasks:
+    file: '{{ ansible_os_family }}.yml'
