@@ -1,15 +1,16 @@
-- name: 'Download zabbix_package'
-  uri:
-    url: 'https://repo.zabbix.com/zabbix/{{ zabbix_version }}/rhel/8/x86_64/zabbix-release-{{ zabbix_version }}-1.el8.noarch.rpm'
-    dest: '/tmp/zabbix_package.deb'
+tasks:
+  - name: 'Download zabbix_package'
+    uri:
+      url: 'https://repo.zabbix.com/zabbix/{{ zabbix_version }}/rhel/8/x86_64/zabbix-release-{{ zabbix_version }}-1.el8.noarch.rpm'
+      dest: '/tmp/zabbix_package.deb'
         
-- name: 'Installing zabbix_package'
-  yum: 
-    deb: '/tmp/zabbix_package.deb'
-    update_cache: true
-    state: "present"
+  - name: 'Installing zabbix_package'
+    yum: 
+      deb: '/tmp/zabbix_package.deb'
+      update_cache: true
+      state: "present"
     
-- name: 'Installing Zabbix_agent'
-  yum:
-    name: 'zabbix-agent'
-    state: 'present'
+  - name: 'Installing Zabbix_agent'
+    yum:
+      name: 'zabbix-agent'
+      state: 'present'
