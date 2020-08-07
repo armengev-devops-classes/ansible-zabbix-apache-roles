@@ -1,16 +1,21 @@
-tasks:
-  - name: 'Download zabbix_package'
-    uri:
-      url: 'https://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/pool/main/z/zabbix-release/zabbix-release_{{ zabbix_version }}-3+bionic_all.deb'
-      dest: '/tmp/zabbix_package.deb'
-        
-  - name: 'Installing zabbix_package'
-    apt: 
-      deb: '/tmp/zabbix_package.deb'
-      update_cache: true
-      state: "present"
-    
-  - name: 'Installing Zabbix_agent'
-    apt:
-      name: 'zabbix-agent'
-      state: 'present'
+---
+- name: "Checking zabbix_package existence"
+  package_facts:
+    manager: "auto"
+
+- name: 'Download zabbix_package'
+  uri:
+    url: 'https://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/pool/main/z/zabbix-release/zabbix-release_{{ zabbix_version }}-3+bionic_all.deb'
+    dest: '/tmp/zabbix_package.deb'
+  when: "'zabbix-release' not in ansible_facts.packages"
+
+- name: 'Installing zabbix_package'
+  apt:
+    deb: '/tmp/zabbix_package.deb'
+    update_cache: true
+    state: "present"
+
+- name: 'Installing Zabbix_agent'
+  apt:
+    name: 'zabbix-agent'
+    state: 'present'
